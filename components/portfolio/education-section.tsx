@@ -85,7 +85,7 @@ export function EducationSection() {
                 {/* Spanish */}
                 <div className="flex items-center justify-between p-3 rounded-lg bg-accent/50">
                   <div className="flex items-center gap-3">
-                    <img src="/Flag_of_Spain.png" alt="Español" className="w-6 h-auto rounded-sm shadow-sm" />
+                    <img src="/Flag_of_Spain.webp" alt="Español" className="w-6 h-auto rounded-sm shadow-sm" />
                     <span className="font-medium text-foreground">
                       {t.education.spanish}
                     </span>
