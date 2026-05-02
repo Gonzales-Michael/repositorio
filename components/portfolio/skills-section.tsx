@@ -19,8 +19,8 @@ const skillCategories = [
     titleEn: 'Calculation & Simulation',
     icon: Calculator,
     tools: [
-      { name: 'Mathcad', initials: 'MC' },
-      { name: 'Matlab/Simulink', initials: 'ML' },
+      { name: 'Mathcad', initials: 'MC', logo: '/mathcad.png' },
+      { name: 'Matlab/Simulink', initials: 'ML', logo: '/Matlab_Logo.png' },
     ],
   },
   {
@@ -29,9 +29,9 @@ const skillCategories = [
     titleEn: 'Electronic Design & Simulation',
     icon: CircuitBoard,
     tools: [
-      { name: 'Proteus', initials: 'PT' },
-      { name: 'OrCAD', initials: 'OC' },
-      { name: 'Multisim', initials: 'MS' },
+      { name: 'Proteus', initials: 'PT', logo: '/logo_proteus.png' },
+      { name: 'OrCAD', initials: 'OC', logo: '/orcad.png' },
+      { name: 'Multisim', initials: 'MS', logo: '/multisim_logo.png' },
     ],
   },
   {
@@ -40,7 +40,7 @@ const skillCategories = [
     titleEn: 'PCB Design',
     icon: Cpu,
     tools: [
-      { name: 'KiCad', initials: 'KC' },
+      { name: 'KiCad', initials: 'KC', logo: '/Kicad.png' },
     ],
   },
   {
@@ -49,7 +49,7 @@ const skillCategories = [
     titleEn: 'CAD Design',
     icon: PenTool,
     tools: [
-      { name: 'AutoCAD', initials: 'AC' },
+      { name: 'AutoCAD', initials: 'AC', logo: '/autocad.png' },
     ],
   },
   {
@@ -58,8 +58,8 @@ const skillCategories = [
     titleEn: 'Microcontroller Programming',
     icon: Code,
     tools: [
-      { name: 'STM32CubeIDE', initials: 'STM' },
-      { name: 'Code Composer Studio', initials: 'CCS' },
+      { name: 'STM32CubeIDE', initials: 'STM', logo: '/stm32cubeide.png' },
+      { name: 'Code Composer Studio', initials: 'CCS', logo: '/ccs.png' },
     ],
   },
   {
@@ -68,7 +68,7 @@ const skillCategories = [
     titleEn: 'FPGA Programming',
     icon: Settings,
     tools: [
-      { name: 'Quartus Lite', initials: 'QL' },
+      { name: 'Quartus Lite', initials: 'QL', logo: '/quartus.png' },
     ],
   },
   {
@@ -77,7 +77,7 @@ const skillCategories = [
     titleEn: 'Industrial Automation (PLC)',
     icon: Cog,
     tools: [
-      { name: 'CX Programmer (Ladder y SFC)', initials: 'CX' },
+      { name: 'CX Programmer', initials: 'CX', logo: '/cx.png' },
     ],
   },
   {
@@ -86,7 +86,7 @@ const skillCategories = [
     titleEn: 'Instrumentation & Measurement',
     icon: Activity,
     tools: [
-      { name: 'Keysight VEE Pro', initials: 'KV' },
+      { name: 'Keysight VEE Pro', initials: 'KV', logo: '/keysight.png' },
     ],
   },
 ]
@@ -134,12 +134,37 @@ export function SkillsSection() {
                   {category.tools.map((tool) => (
                     <div
                       key={tool.name}
-                      className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
+                      className="flex items-center gap-2 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
                     >
-                      <span className="w-5 h-5 rounded bg-[#c45c35]/10 flex items-center justify-center text-[10px] font-bold text-[#c45c35]">
-                        {tool.initials}
-                      </span>
-                      <span className="text-xs font-medium text-foreground">
+                      {/* Logo Container - White background for dark mode compatibility */}
+                      <div className="w-5 h-5 rounded bg-white flex items-center justify-center shrink-0">
+                        {tool.logo ? (
+                          <img 
+                            src={tool.logo} 
+                            alt={tool.name}
+                            className="w-full h-full object-contain p-0.5"
+                            onError={(e) => {
+                              // If logo fails to load, hide it and show initials
+                              const target = e.currentTarget;
+                              target.style.display = 'none';
+                              const parent = target.parentElement;
+                              if (parent) {
+                                const span = document.createElement('span');
+                                span.className = "text-[9px] font-bold text-[#c45c35]";
+                                span.innerText = tool.initials;
+                                parent.appendChild(span);
+                              }
+                            }}
+                          />
+                        ) : (
+                          <span className="text-[9px] font-bold text-[#c45c35]">
+                            {tool.initials}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Tool Name */}
+                      <span className="text-xs font-medium text-foreground truncate">
                         {tool.name}
                       </span>
                     </div>
