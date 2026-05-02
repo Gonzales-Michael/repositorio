@@ -49,7 +49,7 @@ const skillCategories = [
     titleEn: 'CAD Design',
     icon: PenTool,
     tools: [
-      { name: 'AutoCAD', initials: 'AC', logo: '/autocad.png' },
+      { name: 'AutoCAD', initials: 'AC', logo: '/autocad.png ' },
     ],
   },
   {
