@@ -2,150 +2,95 @@
 
 import { useLanguage } from '@/lib/language-context'
 import { 
-  Calculator, 
-  Cpu, 
+  Zap, 
+  Ruler, 
+  HeartPulse, 
   CircuitBoard, 
-  PenTool, 
-  Code, 
-  Settings, 
-  Cog, 
-  Activity 
+  Cpu, 
+  Lightbulb, 
+  ShieldCheck,
+  ExternalLink
 } from 'lucide-react'
 
-const skillCategories = [
-  {
-    id: 'calc-sim',
-    titleEs: 'Cálculo y simulación',
-    titleEn: 'Calculation & Simulation',
-    icon: Calculator,
-    tools: [
-      { name: 'Mathcad', initials: 'MC' },
-      { name: 'Matlab/Simulink', initials: 'ML' , logo: '/Matlab_Logo.png'},
-    ],
-  },
-  {
-    id: 'design-sim',
-    titleEs: 'Diseño y simulación electrónica',
-    titleEn: 'Electronic Design & Simulation',
-    icon: CircuitBoard,
-    tools: [
-      { name: 'Proteus', initials: 'PT' },
-      { name: 'OrCAD', initials: 'OC' },
-      { name: 'Multisim', initials: 'MS' },
-    ],
-  },
-  {
-    id: 'pcb',
-    titleEs: 'Diseño de PCB',
-    titleEn: 'PCB Design',
-    icon: Cpu,
-    tools: [
-      { name: 'KiCad', initials: 'KC' },
-    ],
-  },
-  {
-    id: 'cad',
-    titleEs: 'Diseño CAD',
-    titleEn: 'CAD Design',
-    icon: PenTool,
-    tools: [
-      { name: 'AutoCAD', initials: 'AC' },
-    ],
-  },
-  {
-    id: 'mcu',
-    titleEs: 'Programación de microcontroladores',
-    titleEn: 'Microcontroller Programming',
-    icon: Code,
-    tools: [
-      { name: 'STM32CubeIDE', initials: 'STM' },
-      { name: 'Code Composer Studio', initials: 'CCS' },
-    ],
-  },
-  {
-    id: 'fpga',
-    titleEs: 'Programación de FPGA',
-    titleEn: 'FPGA Programming',
-    icon: Settings,
-    tools: [
-      { name: 'Quartus Lite', initials: 'QL' },
-    ],
-  },
-  {
-    id: 'plc',
-    titleEs: 'Automatización industrial (PLC)',
-    titleEn: 'Industrial Automation (PLC)',
-    icon: Cog,
-    tools: [
-      { name: 'CX Programmer (Ladder y SFC)', initials: 'CX' },
-    ],
-  },
-  {
-    id: 'instrumentation',
-    titleEs: 'Instrumentación y medida',
-    titleEn: 'Instrumentation & Measurement',
-    icon: Activity,
-    tools: [
-      { name: 'Keysight VEE Pro', initials: 'KV' },
-    ],
-  },
-]
+const iconMap: Record<string, React.ElementType> = {
+  'zap': Zap,
+  'ruler': Ruler,
+  'heart-pulse': HeartPulse,
+  'circuit-board': CircuitBoard,
+  'cpu': Cpu,
+  'lightbulb': Lightbulb,
+  'shield-check': ShieldCheck,
+}
 
-export function SkillsSection() {
-  const { t, language } = useLanguage()
+export function ProjectsSection() {
+  const { t } = useLanguage()
 
   return (
     <section
-      id="skills"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-accent/30"
+      id="projects"
+      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Number & Title */}
         <div className="flex items-baseline gap-4 mb-12">
           <span className="text-6xl sm:text-7xl font-bold text-[#c45c35]/20">
-            03
+            04
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            {t.skills.title}
+            {t.projects.title}
           </h2>
         </div>
 
-        {/* Dashboard Panels Grid - 4 columns on large screens */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {skillCategories.map((category) => {
-            const Icon = category.icon
+        {/* Projects Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {t.projectsData.map((project) => {
+            const Icon = iconMap[project.icon] || Cpu
             return (
-              <div
-                key={category.id}
-                className="bg-card rounded-xl border border-border shadow-sm p-5 hover:shadow-md hover:border-[#c45c35]/30 transition-all duration-300"
+              <article
+                key={project.id}
+                className="group bg-card rounded-xl border border-border shadow-sm p-6 hover:shadow-lg hover:border-[#c45c35]/30 transition-all duration-300 flex flex-col"
               >
-                {/* Category Header */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-[#c45c35]/10 flex items-center justify-center shrink-0">
-                    <Icon className="size-4 text-[#c45c35]" />
+                {/* Header */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-[#c45c35]/10 flex items-center justify-center shrink-0">
+                    <Icon className="size-6 text-[#c45c35]" />
                   </div>
-                  <h3 className="text-sm font-semibold text-foreground leading-tight">
-                    {language === 'es' ? category.titleEs : category.titleEn}
-                  </h3>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-base font-semibold text-foreground leading-tight">
+                        {project.title}
+                      </h3>
+                      {project.inProgress && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#c45c35]/10 text-[#c45c35] border border-[#c45c35]/20">
+                          {t.projects.inProgress}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Tools as Pills/Badges */}
-                <div className="flex flex-wrap gap-1.5">
-                  {category.tools.map((tool) => (
-                    <div
-                      key={tool.name}
-                      className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
+                {/* Description */}
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-auto">
+                  {project.tags.slice(0, 4).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 rounded-md bg-accent/50 border border-border text-xs font-medium text-muted-foreground"
                     >
-                      <span className="w-5 h-5 rounded bg-[#c45c35]/10 flex items-center justify-center text-[10px] font-bold text-[#c45c35]">
-                        {tool.initials}
-                      </span>
-                      <span className="text-xs font-medium text-foreground">
-                        {tool.name}
-                      </span>
-                    </div>
+                      {tag}
+                    </span>
                   ))}
+                  {project.tags.length > 4 && (
+                    <span className="px-2 py-1 rounded-md bg-accent/50 border border-border text-xs font-medium text-muted-foreground">
+                      +{project.tags.length - 4}
+                    </span>
+                  )}
                 </div>
-              </div>
+              </article>
             )
           })}
         </div>
