@@ -59,7 +59,7 @@ const skillCategories = [
     icon: Code,
     tools: [
       { name: 'STM32CubeIDE', initials: 'STM', logo: '/stm32cubeide.png' },
-      { name: 'Code Composer Studio', initials: 'CCS', logo: '/ccs.png' },
+      { name: 'Code Composer Studio', initials: 'CCS', logo: '/code_composer_studio.png' },
     ],
   },
   {
