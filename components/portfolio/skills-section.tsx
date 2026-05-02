@@ -132,23 +132,34 @@ export function SkillsSection() {
                 {/* Tools as Pills/Badges */}
                 <div className="flex flex-wrap gap-1.5">
                   {category.tools.map((tool) => (
-                    <div
-                      key={tool.name}
-                      className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
-                    >
-                      <div className="w-6 h-6 flex items-center justify-center overflow-hidden shrink-0">
-                        <img 
-                          src={tool.logo || "/placeholder.svg"} 
-                          alt={tool.name} 
-                          className="max-w-full max-h-full object-contain"
-                          onError={(e) => {
-                            // Si el logo falla, muestra las iniciales como plan B
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.parentElement!.innerHTML = `<span class="text-[10px] font-bold text-[#c45c35]">${tool.initials}</span>`;
-                          }}
-                        />
-                      </div>
+                  <div
+                    key={tool.name}
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
+                  >
+                    {/* Contenedor del Logo */}
+                    <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                      <img 
+                        src={tool.logo || "/placeholder.svg"} 
+                        alt="" 
+                        className="max-w-full max-h-full object-contain"
+                        onError={(e) => {
+                          // Si el logo falla, muestra las iniciales
+                          const target = e.currentTarget;
+                          target.style.display = 'none';
+                          const span = document.createElement('span');
+                          span.className = "text-[10px] font-bold text-[#c45c35]";
+                          span.innerText = tool.initials;
+                          target.parentElement?.appendChild(span);
+                        }}
+                      />
                     </div>
+
+                    {/* Nombre de la herramienta (Esto es lo que te faltaba) */}
+                    <span className="text-xs font-medium text-foreground truncate">
+                      {tool.name}
+                    </span>
+                  </div>
+                ))}
                   ))}
                 </div>
               </div>
