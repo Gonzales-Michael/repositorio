@@ -20,7 +20,7 @@ const skillCategories = [
     icon: Calculator,
     tools: [
       { name: 'Mathcad', initials: 'MC' },
-      { name: 'Matlab/Simulink', initials: 'ML' },
+      { name: 'Matlab/Simulink', initials: 'ML' , logo: '/Matlab_Logo.png'},
     ],
   },
   {
