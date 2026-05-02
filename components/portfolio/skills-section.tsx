@@ -136,12 +136,18 @@ export function SkillsSection() {
                       key={tool.name}
                       className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-accent/50 border border-border hover:border-[#c45c35]/30 transition-colors"
                     >
-                      <span className="w-5 h-5 rounded bg-[#c45c35]/10 flex items-center justify-center text-[10px] font-bold text-[#c45c35]">
-                        {tool.initials}
-                      </span>
-                      <span className="text-xs font-medium text-foreground">
-                        {tool.name}
-                      </span>
+                      <div className="w-6 h-6 flex items-center justify-center overflow-hidden shrink-0">
+                        <img 
+                          src={tool.logo || "/placeholder.svg"} 
+                          alt={tool.name} 
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e) => {
+                            // Si el logo falla, muestra las iniciales como plan B
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.parentElement!.innerHTML = `<span class="text-[10px] font-bold text-[#c45c35]">${tool.initials}</span>`;
+                          }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
